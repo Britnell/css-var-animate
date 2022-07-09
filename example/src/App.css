@@ -3,24 +3,76 @@
   margin: 0 auto;
 }
 
+p {
+  font-size: 18px;
+  color: rgb(159, 159, 159);
+}
+p.info {
+  color: black;
+}
+
+p.code,
+span.code {
+  color: black;
+  font-family: "Courier New", Courier, monospace;
+  background-color: rgb(238, 238, 238);
+}
+
+p.code {
+  padding: 8px;
+}
+
+span.code {
+  margin: 0 8px;
+  padding: 2px 4px;
+}
+
 .sc1 {
   height: 200px;
+  background-color: grey;
+  font-size: 32px;
+  text-align: center;
 }
 .above {
-  background-color: grey;
 }
-.below {
-  background-color: green;
+.second {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .slide {
-  height: 200px;
-  background-color: rgb(240, 153, 153);
-  /* position: absolute; */
-  --p: calc(100 * var(--s) / var(--s-max));
-  --pos: calc((var(--p) - 50) * 2%);
-  padding-bottom: var(--p);
+  height: 100px;
+  width: 100px;
+  background-color: rgb(89, 148, 221);
+  --pos: calc(var(--p) * 1vw - 100px);
   transform: translateX(var(--pos));
+  transition: transform 0.1s linear;
+}
+
+.ball {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: rgb(240, 153, 153);
+  background-image: conic-gradient(red 180deg, green 0deg);
+
+  --pos: calc(var(--p) * 1vw - 100px);
+  --ang: calc(var(--p) * 20deg);
+  transform: translateX(var(--pos)) rotate(var(--ang));
+  transition: transform 0.1s linear;
+}
+
+.balltwo {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: rgb(240, 153, 153);
+  background-image: conic-gradient(red 180deg, green 0deg);
+
+  --pos: calc(var(--s) * 0.1vw - 100px);
+  --ang: calc(var(--s) * 1deg);
+  transform: translateX(var(--pos)) rotate(var(--ang));
   transition: transform 0.1s linear;
 }
 
@@ -47,6 +99,13 @@
   transition: all 0.1s linear;
 }
 
+/* threshold */
+
+.thresh {
+  height: 100px;
+  background-color: red;
+  margin: 0 auto;
+}
 /*  Roller letter */
 
 .roller {

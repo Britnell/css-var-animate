@@ -1,40 +1,25 @@
 import { useEffect, useState } from "react";
-
-const getRaf = (window: {
-  requestAnimationFrame?: any;
-  webkitRequestAnimationFrame?: any;
-  mozRequestAnimationFrame?: any;
-  msRequestAnimationFrame?: any;
-  oRequestAnimationFrame?: any;
-}) =>
-  window.requestAnimationFrame ||
-  window.webkitRequestAnimationFrame ||
-  window.mozRequestAnimationFrame ||
-  window.msRequestAnimationFrame ||
-  window.oRequestAnimationFrame;
+import { getRaf, asStr } from "./util";
 
 type scrollProps = {
   scroll: number;
   scrollMax: number;
   perc: number;
+  element: HTMLElement;
 };
 
 type extraCssVars = {
-  name: string;
-  val: string | number;
+  [key: string]: string | number;
 };
 
 type targetType = {
-  ref: any;
+  ref: React.RefObject<HTMLDivElement>;
   classTrue?: string;
   classFalse?: string;
   classChecker?: (props: scrollProps) => boolean;
-  disableObserver?: boolean;
-  setScroll?: boolean;
-  setPercentage?: boolean;
-  variator?: (props: scrollProps) => extraCssVars[];
-  lastCheck?: boolean;
+  customVars?: (props: scrollProps) => extraCssVars | void;
   watch?: boolean;
+  disableObserver?: boolean;
 };
 
 const defaultValues = ({
@@ -42,24 +27,21 @@ const defaultValues = ({
   classChecker,
   classTrue = "scroll-true",
   classFalse = "scroll-false",
-  variator,
-  disableObserver = false,
-  setScroll = true,
-  setPercentage = true,
+  customVars,
   watch = false,
+  disableObserver = false,
 }: targetType) => ({
   ref,
   classChecker,
   classTrue,
   classFalse,
-  variator,
-  disableObserver,
-  setScroll,
-  setPercentage,
+  customVars,
   watch,
+  disableObserver,
 });
 
 const useScroller = (targets: targetType[]) => {
+  // apply default args to each target
   const [observed] = useState(() => targets.map((it) => defaultValues(it)));
 
   // * * * * * * *
@@ -69,43 +51,58 @@ const useScroller = (targets: targetType[]) => {
     let last = 0;
 
     const checkItemScroll = (item: targetType) => {
+      if (!item.ref.current) return;
       const rec = item.ref.current.getBoundingClientRect();
-      const scrollMax = window.innerHeight + rec.height;
 
-      let scroll;
-      scroll = window.innerHeight - rec.top;
+      // * Calc Scroll vals
+      const scrollMax = window.innerHeight + rec.height;
+      let scroll = Math.floor(window.innerHeight - rec.top);
       if (rec.top > window.innerHeight) scroll = 0;
       if (scroll > scrollMax) scroll = scrollMax;
-
       const perc = Math.floor((100 * scroll) / scrollMax);
 
+      // * apply conditional classes
       if (item.classChecker) {
-        const check = item.classChecker({ scroll, scrollMax, perc });
-        if (check !== item.lastCheck) {
-          if (check) {
-            item.ref.current.classList.add(item.classFalse);
-            item.ref.current.classList.remove(item.classTrue);
-          } else {
+        const check = item.classChecker({
+          scroll,
+          scrollMax,
+          perc,
+          element: item.ref.current,
+        });
+
+        if (item.classFalse) {
+          const contains = item.ref.current.classList.contains(item.classFalse);
+          if (check && contains)
             item.ref.current.classList.remove(item.classFalse);
+          if (!check && !contains)
+            item.ref.current.classList.add(item.classFalse);
+        }
+
+        if (item.classTrue) {
+          const contains = item.ref.current.classList.contains(item.classTrue);
+          if (check && !contains)
             item.ref.current.classList.add(item.classTrue);
-          }
-          item.lastCheck = check;
+          if (!check && contains)
+            item.ref.current.classList.remove(item.classTrue);
         }
       }
 
       // write prop
-      if (item.setScroll) {
-        item.ref.current.style.setProperty("--s", scroll);
-        item.ref.current.style.setProperty("--s-max", scrollMax);
-      }
-      if (item.setPercentage) item.ref.current.style.setProperty("--p", perc);
-
-      if (item.variator) {
-        const variators = item.variator({ perc, scroll, scrollMax });
-        variators.forEach((variator) => {
-          item.ref.current.style.setProperty(variator.name, variator.val);
+      if (item.customVars) {
+        const customs =
+          item.customVars({
+            perc,
+            scroll,
+            scrollMax,
+            element: item.ref.current,
+          }) || {};
+        Object.keys(customs).forEach((key) => {
+          item.ref.current?.style.setProperty(key, asStr(customs[key]));
         });
       }
+      item.ref.current.style.setProperty("--p", asStr(perc));
+      item.ref.current.style.setProperty("--s", asStr(scroll));
+      // item.ref.current.style.setProperty("--s-max", asStr(scrollMax));
     };
 
     // run on every scroll pos change
