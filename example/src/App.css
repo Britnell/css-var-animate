@@ -28,6 +28,37 @@ span.code {
   padding: 2px 4px;
 }
 
+/* Count Example */
+.count h4:after {
+  counter-reset: val calc(var(--x) * 100);
+  content: counter(val);
+}
+
+.count .box {
+  height: 20px;
+  --b: 2px;
+  border: var(--b) solid white;
+  box-shadow: 0 0 0 var(--b) black;
+  overflow: hidden;
+}
+.count .bar {
+  background-color: rgb(0, 28, 128);
+  height: 100%;
+  --p: calc(var(--x) * 100% - 100%);
+  transform: translateX(var(--p));
+}
+
+.buttons {
+  display: flex;
+  padding: 12px;
+  gap: 12px;
+}
+.buttons button {
+  padding: 4px 8px;
+}
+
+/* Scroll */
+
 .sc1 {
   height: 200px;
   background-color: grey;
@@ -82,8 +113,13 @@ span.code {
   transition: transform 0.1s linear;
 }
 
-.pacman {
+.pac-container {
   --w: 100px;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+.pacman {
   width: var(--w);
   height: var(--w);
   border-radius: 50%;
@@ -103,6 +139,17 @@ span.code {
   transform: translateX(var(--pos));
   transition: all 0.1s linear;
 }
+.dots {
+  position: absolute;
+  right: 0;
+  height: var(--w);
+  width: 100vw;
+  background: radial-gradient(blue 5px, transparent 0);
+  background-size: var(--w) var(--w);
+  background-position: calc((1 - var(--p)) * 100vw);
+  width: calc((1 - var(--p)) * 100vw - var(--w) * 0.25);
+  transition: all 0.1s linear;
+}
 
 /* threshold */
 
@@ -110,11 +157,31 @@ span.code {
   height: 100px;
   margin: 0 auto;
 }
-.thresh.above {
+.thresh.before {
   background-color: rgb(154, 154, 154);
 }
-.thresh.below {
+.thresh.after {
   background-color: rgb(134, 180, 255);
+}
+
+.fade {
+  height: 100px;
+
+  background-color: black;
+  color: white;
+
+  display: grid;
+  place-items: center;
+  font-size: 80px;
+  font-weight: 900;
+
+  transition: all 0.4s ease-in-out;
+  transform: translateX(-100px);
+  opacity: 0;
+}
+.fadeIn {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /*  Roller letter */

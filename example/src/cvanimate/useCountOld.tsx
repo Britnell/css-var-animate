@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import Bezier from "bezier-easing";
 
 // 5ms interval for framerate
@@ -11,18 +11,39 @@ const defaultEasings = {
   "ease-out": [0, 0, 0.6, 1],
 };
 
-const useCounter = (ref) => {
-  const timer = useRef();
+type startProps = {
+  name?: string;
+  T: number;
+  unit?: string;
+  bezier?: number[];
+  easing?: "linear" | "ease-in" | "ease-out";
+};
 
-  const start = ({ name = "--x", T = 1.0, unit = "", easing, bezier }) => {
+const useCounter = (ref: React.RefObject<HTMLDivElement>) => {
+  const timer = useRef<NodeJS.Timer | null>();
+
+  const start = ({
+    name = "--x",
+    T = 1.0,
+    unit = "",
+    easing,
+    bezier,
+  }: startProps) => {
     const steps = T / intvl;
     const perStep = 100 / steps;
-    const cubicBezier = bezier || defaultEasings[easing] || [1, 0, 0, 1];
-    const easeF = Bezier(...cubicBezier);
+    const cubicBezier = bezier ||
+      (easing && defaultEasings[easing]) || [1, 0, 0, 1];
+
+    const easeF = Bezier(
+      cubicBezier[0],
+      cubicBezier[1],
+      cubicBezier[2],
+      cubicBezier[3]
+    );
 
     if (timer.current) {
       clearInterval(timer.current);
-      timer.current = 0;
+      timer.current = null;
     }
 
     let x = 0;
@@ -35,7 +56,7 @@ const useCounter = (ref) => {
 
       if (x >= 100) {
         x = 100;
-        clearInterval(timer.current);
+        timer.current && clearInterval(timer.current);
       }
       if (ref.current) ref.current.style.setProperty(name, ease * 100 + unit);
     }, intvl * 1000);

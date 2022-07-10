@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import "./App.css";
 import useScroller from "./cvanimate/useScroller";
+import useCounter from "./cvanimate/useCount";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);
@@ -9,14 +10,15 @@ const Scroller = () => {
   const fourRef = useRef<HTMLDivElement>(null);
   const pacRef = useRef<HTMLDivElement>(null);
   const threshRef = useRef<HTMLDivElement>(null);
+  const fadeRef = useRef<HTMLDivElement>(null);
   const rollRef = useRef<HTMLDivElement>(null);
+
+  const countRef = useRef<HTMLDivElement>(null);
+  const { start } = useCounter();
 
   useScroller([
     {
       ref: elRef,
-      // customVars: ({ element, perc }) => {
-      //   if (element) element.textContent = `${perc}%`;
-      // },
     },
     { ref: secRef },
     { ref: thirdRef },
@@ -35,16 +37,20 @@ const Scroller = () => {
     },
     {
       ref: threshRef,
-      classChecker: ({ top }) => {
-        return top > window.innerHeight / 2;
-      },
-      classTrue: "above",
-      classFalse: "below",
+      classChecker: ({ top }) => top > window.innerHeight / 2,
+      classTrue: "before",
+      classFalse: "after",
+      customVars: () => {},
+    },
+    {
+      ref: fadeRef,
+      classChecker: ({ top }) => top < window.innerHeight / 2,
+      classTrue: "fadeIn",
       customVars: () => {},
     },
     {
       ref: rollRef,
-      classChecker: ({ perc }) => perc < 20,
+      classChecker: ({ top }) => top < window.innerHeight * 0.75,
       classTrue: "rollIn",
       classFalse: "rollOut",
     },
@@ -55,8 +61,50 @@ const Scroller = () => {
       <h1>CSS Var Animate</h1>
       <p className="info">
         Welcome to this simple animation lib. This uses js to animate css
-        variables, for animations.
+        variables for animations.
       </p>
+      <h2>useCount</h2>
+      <p className="info">
+        CSS variables can be great for simplifying styles, and separating styles
+        from js. They can now even be animated, however only when we specify the
+        number type with @property. This however does not yet have quite enough
+        browser support, so here is a super simple js library to do that.
+      </p>
+      <div className="count" ref={countRef}>
+        <h4>Counter Example - </h4>
+        <div className="box">
+          <div className="bar"></div>
+        </div>
+        <div className="buttons">
+          <button
+            onClick={() => {
+              start({
+                ref: countRef,
+                id: "--x",
+                ms: 1000,
+              });
+            }}
+            // onClick={() => counter.start({ T: 1.0, easing: "linear" })}
+          >
+            Linear
+          </button>
+          <button
+            onClick={() => {
+              start({
+                ref: countRef,
+                id: "--x",
+                ms: 1000,
+                bezier: [1, 0, 0, 1],
+              });
+            }}
+            // onClick={() => counter.start({ T: 1.0, bezier: [1, 0, 0, 1] })}
+          >
+            Ease in out
+          </button>
+        </div>
+      </div>
+      <p className="info"></p>
+
       <h2>useScroll</h2>
       <p className="info">A react hook to animate with Scroll.</p>
       <p className="info">Scroll down for the first example</p>
@@ -170,7 +218,8 @@ const Scroller = () => {
         I know the first thiing you are thinking is : Pacman on scroll
         animation. And yes, we can do that now.
       </p>
-      <div ref={pacRef} className="second">
+      <div ref={pacRef} className="pac-container">
+        <div className="dots"> </div>
         <div className="pacman"> </div>
       </div>
       <p className="info">
@@ -205,6 +254,18 @@ const Scroller = () => {
       </p>
       <p className="info"></p>
       <div ref={threshRef} className="thresh"></div>
+      <p className="info">
+        Use this to make elements fade in at specific points.
+      </p>
+      <div ref={fadeRef} className="fade">
+        <span>KERPOW!</span>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+        interdum maximus libero, in ornare nunc tincidunt sit amet. Ut efficitur
+        maximus molestie. Phasellus sed egestas elit, sed pharetra erat. Vivamus
+        et facilisis dui.
+      </p>
       <div ref={rollRef} className="roller">
         <span className="q1">
           <span className="q2">
