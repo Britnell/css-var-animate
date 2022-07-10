@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { getRaf, asStr } from "./util";
 
-type scrollProps = {
+type callbackProps = {
   scroll: number;
   scrollMax: number;
   perc: number;
+  top: number;
+  bottom: number;
   element: HTMLElement;
 };
 
@@ -16,8 +18,8 @@ type targetType = {
   ref: React.RefObject<HTMLDivElement>;
   classTrue?: string;
   classFalse?: string;
-  classChecker?: (props: scrollProps) => boolean;
-  customVars?: (props: scrollProps) => extraCssVars | void;
+  classChecker?: (props: callbackProps) => boolean;
+  customVars?: (props: callbackProps) => extraCssVars | void;
   watch?: boolean;
   disableObserver?: boolean;
 };
@@ -55,18 +57,20 @@ const useScroller = (targets: targetType[]) => {
       const rec = item.ref.current.getBoundingClientRect();
 
       // * Calc Scroll vals
+      const { top, bottom } = rec;
       const scrollMax = window.innerHeight + rec.height;
       let scroll = Math.floor(window.innerHeight - rec.top);
       if (rec.top > window.innerHeight) scroll = 0;
       if (scroll > scrollMax) scroll = scrollMax;
       const perc = Math.floor((100 * scroll) / scrollMax);
-
       // * apply conditional classes
       if (item.classChecker) {
         const check = item.classChecker({
           scroll,
           scrollMax,
           perc,
+          top,
+          bottom,
           element: item.ref.current,
         });
 
