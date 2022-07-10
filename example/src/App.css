@@ -35,7 +35,7 @@ span.code {
   text-align: center;
 }
 .sc1:after {
-  counter-reset: p var(--p);
+  counter-reset: p calc(var(--p) * 100);
   content: counter(p) " %";
 }
 
@@ -51,7 +51,7 @@ span.code {
   height: 100px;
   width: 100px;
   background-color: rgb(89, 148, 221);
-  --pos: calc(var(--p) / 100 * (100vw - 100px));
+  --pos: calc(var(--p) * (100vw - 100px));
   transform: translateX(var(--pos));
   transition: transform 0.1s linear;
 }
@@ -63,8 +63,8 @@ span.code {
   background-color: rgb(240, 153, 153);
   background-image: conic-gradient(red 180deg, green 0deg);
 
-  --pos: calc(var(--p) * 1vw - 100px);
-  --ang: calc(var(--p) * 20deg);
+  --pos: calc(var(--p) * 100vw - 100px);
+  --ang: calc(var(--p) * 360deg * 2);
   transform: translateX(var(--pos)) rotate(var(--ang));
   transition: transform 0.1s linear;
 }
@@ -109,9 +109,15 @@ span.code {
 
 .thresh {
   height: 100px;
-  background-color: red;
   margin: 0 auto;
 }
+.thresh.above {
+  background-color: rgb(154, 154, 154);
+}
+.thresh.below {
+  background-color: rgb(134, 180, 255);
+}
+
 /*  Roller letter */
 
 .roller {

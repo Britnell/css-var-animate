@@ -20,17 +20,17 @@ type targetType = {
   classFalse?: string;
   classChecker?: (props: callbackProps) => boolean;
   customVars?: (props: callbackProps) => extraCssVars | void;
-  watch?: boolean;
+  unwatch?: boolean;
   disableObserver?: boolean;
 };
 
 const defaultValues = ({
   ref,
   classChecker,
-  classTrue = "scroll-true",
-  classFalse = "scroll-false",
+  classTrue,
+  classFalse,
   customVars,
-  watch = false,
+  // watch,
   disableObserver = false,
 }: targetType) => ({
   ref,
@@ -38,13 +38,14 @@ const defaultValues = ({
   classTrue,
   classFalse,
   customVars,
-  watch,
+  // watch,
   disableObserver,
 });
 
 const useScroller = (targets: targetType[]) => {
   // apply default args to each target
-  const [observed] = useState(() => targets.map((it) => defaultValues(it)));
+  const [observed] = useState(targets);
+  // const [observed] = useState(() => targets.map((it) => defaultValues(it)));
 
   // * * * * * * *
   useEffect(() => {
@@ -57,12 +58,16 @@ const useScroller = (targets: targetType[]) => {
       const rec = item.ref.current.getBoundingClientRect();
 
       // * Calc Scroll vals
-      const { top, bottom } = rec;
+      const top = Math.floor(rec.top);
+      const bottom = Math.floor(rec.bottom);
       const scrollMax = window.innerHeight + rec.height;
+
       let scroll = Math.floor(window.innerHeight - rec.top);
       if (rec.top > window.innerHeight) scroll = 0;
       if (scroll > scrollMax) scroll = scrollMax;
-      const perc = Math.floor((100 * scroll) / scrollMax);
+      const perc = Math.floor((scroll / scrollMax) * 400) / 400;
+
+      // console.log(" \ts ", scroll, item.ref.current);
       // * apply conditional classes
       if (item.classChecker) {
         const check = item.classChecker({
@@ -98,21 +103,24 @@ const useScroller = (targets: targetType[]) => {
             perc,
             scroll,
             scrollMax,
+            top,
+            bottom,
             element: item.ref.current,
           }) || {};
         Object.keys(customs).forEach((key) => {
           item.ref.current?.style.setProperty(key, asStr(customs[key]));
         });
+      } else {
+        item.ref.current.style.setProperty("--p", asStr(perc));
+        item.ref.current.style.setProperty("--s", asStr(scroll));
+        // item.ref.current.style.setProperty("--s-max", asStr(scrollMax));
       }
-      item.ref.current.style.setProperty("--p", asStr(perc));
-      item.ref.current.style.setProperty("--s", asStr(scroll));
-      // item.ref.current.style.setProperty("--s-max", asStr(scrollMax));
     };
 
     // run on every scroll pos change
     const scrollLoop = () => {
       observed.forEach((item) => {
-        (item.disableObserver || item.watch) && checkItemScroll(item);
+        if (!item?.unwatch) checkItemScroll(item);
       });
     };
 
@@ -140,13 +148,13 @@ const useScroller = (targets: targetType[]) => {
 
       // * out event
       if (!entry.isIntersecting) {
-        observedItem.watch = false;
+        observedItem.unwatch = true;
         checkItemScroll(observedItem);
         return;
       }
 
       // * in event
-      observedItem.watch = true;
+      observedItem.unwatch = false;
       checkItemScroll(observedItem);
     };
 

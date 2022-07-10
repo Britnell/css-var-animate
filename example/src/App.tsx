@@ -34,9 +34,12 @@ const Scroller = () => {
     },
     {
       ref: threshRef,
-      classChecker: ({ perc }) => perc < 20,
+      classChecker: ({ top }) => {
+        return top > window.innerHeight / 2;
+      },
       classTrue: "above",
       classFalse: "below",
+      customVars: () => {},
     },
     {
       ref: rollRef,
@@ -195,7 +198,9 @@ const Scroller = () => {
         For this you can use
         <span className="code">classChecker</span>,
         <span className="code">classTrue</span>&
-        <span className="code">classFalse</span>. asdads
+        <span className="code">classFalse</span>. classChecker is a callback
+        that will be run on every frame. It must return a boolean that will
+        decide if the true or false classes are applied
       </p>
       <p className="info"></p>
       <div ref={threshRef} className="thresh"></div>
