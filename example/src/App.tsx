@@ -24,9 +24,10 @@ const Scroller = () => {
     {
       ref: pacRef,
       customVars: ({ perc }) => {
-        const p = 100 / 10;
-        const cycle = Math.floor(perc / p) % 2 === 0;
-        const val = cycle ? perc % p : p - (perc % p);
+        const p = perc * 100;
+        const period = 100 / 10;
+        const cycle = Math.floor(p / period) % 2 === 0;
+        const val = cycle ? p % period : period - (p % period);
         return {
           "--a": val,
         };
@@ -169,7 +170,7 @@ const Scroller = () => {
         I know the first thiing you are thinking is : Pacman on scroll
         animation. And yes, we can do that now.
       </p>
-      <div ref={pacRef}>
+      <div ref={pacRef} className="second">
         <div className="pacman"> </div>
       </div>
       <p className="info">

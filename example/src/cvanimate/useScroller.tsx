@@ -21,31 +21,11 @@ type targetType = {
   classChecker?: (props: callbackProps) => boolean;
   customVars?: (props: callbackProps) => extraCssVars | void;
   unwatch?: boolean;
-  disableObserver?: boolean;
 };
-
-const defaultValues = ({
-  ref,
-  classChecker,
-  classTrue,
-  classFalse,
-  customVars,
-  // watch,
-  disableObserver = false,
-}: targetType) => ({
-  ref,
-  classChecker,
-  classTrue,
-  classFalse,
-  customVars,
-  // watch,
-  disableObserver,
-});
 
 const useScroller = (targets: targetType[]) => {
   // apply default args to each target
   const [observed] = useState(targets);
-  // const [observed] = useState(() => targets.map((it) => defaultValues(it)));
 
   // * * * * * * *
   useEffect(() => {
@@ -111,10 +91,10 @@ const useScroller = (targets: targetType[]) => {
           item.ref.current?.style.setProperty(key, asStr(customs[key]));
         });
       } else {
-        item.ref.current.style.setProperty("--p", asStr(perc));
-        item.ref.current.style.setProperty("--s", asStr(scroll));
         // item.ref.current.style.setProperty("--s-max", asStr(scrollMax));
       }
+      item.ref.current.style.setProperty("--p", asStr(perc));
+      item.ref.current.style.setProperty("--s", asStr(scroll));
     };
 
     // run on every scroll pos change
@@ -165,8 +145,8 @@ const useScroller = (targets: targetType[]) => {
     });
 
     // Observe
-    observed.forEach(({ ref, disableObserver }) => {
-      !disableObserver && ref.current && Observer.observe(ref.current);
+    observed.forEach(({ ref }) => {
+      ref.current && Observer.observe(ref.current);
     });
 
     // Start animation Frame loop
@@ -176,8 +156,7 @@ const useScroller = (targets: targetType[]) => {
     return () => {
       // Unobserve
       observed.forEach(
-        ({ ref, disableObserver }) =>
-          !disableObserver && ref.current && Observer.unobserve(ref.current)
+        ({ ref }) => ref.current && Observer.unobserve(ref.current)
       );
     };
   }, [observed]);

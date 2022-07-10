@@ -86,8 +86,8 @@ span.code {
   --w: 100px;
   width: var(--w);
   height: var(--w);
+  border-radius: 50%;
 
-  /* background-color: rgb(249, 211, 46); */
   --col: rgb(249, 211, 46);
   --mouth: calc(var(--a) * 4.5deg);
   background-image: radial-gradient(black 5px, transparent 0),
@@ -98,9 +98,8 @@ span.code {
       var(--col) 0deg
     );
   background-position: 0 -25px, 0 0;
-  border-radius: 50%;
 
-  --pos: calc((var(--p) - 50) * 10% + 50%);
+  --pos: calc(var(--p) * 100vw);
   transform: translateX(var(--pos));
   transition: all 0.1s linear;
 }
