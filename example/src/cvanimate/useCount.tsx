@@ -6,18 +6,17 @@ import { asStr } from "./util";
 
 const defaultEasings = {
   linear: [0, 0, 1, 1],
-  "ease-in-out": [1, 0, 0, 1],
   "ease-in": [0.6, 0, 1, 1],
   "ease-out": [0, 0, 0.6, 1],
+  "ease-in-out": [1, 0, 0, 1],
 };
-const linear = (x: number) => x;
 
 type startProps = {
   ref: React.RefObject<HTMLDivElement>;
   id: string;
   ms?: number;
   bezier?: number[];
-  easing?: "linear" | "ease-in" | "ease-out";
+  easing?: "linear" | "ease-in" | "ease-out" | "ease-in-out";
 };
 
 type counterType = {
@@ -45,10 +44,8 @@ const useCounter = () => {
         let p = t / ms;
         if (p > 1.0) p = 1.0;
         const val = easingFunction(p);
-        // console.log(p, counter);
         if (counter.ref.current)
           counter.ref.current.style.setProperty(id, asStr(val));
-
         // End
         if (t >= ms) counter.active = false;
       });
@@ -63,14 +60,18 @@ const useCounter = () => {
     };
   }, []);
 
-  const start = ({ ref, id, ms = 1000, bezier, easing }: startProps) => {
+  const start = ({
+    ref,
+    id,
+    ms = 1000,
+    bezier,
+    easing = "linear",
+  }: startProps) => {
     let curve;
-    if (easing && defaultEasings[easing]) curve = defaultEasings[easing];
-    else if (bezier) curve = bezier;
+    if (bezier) curve = bezier;
+    else curve = defaultEasings[easing];
 
-    const easingFunction = curve
-      ? Bezier(curve[0], curve[1], curve[2], curve[3])
-      : linear;
+    const easingFunction = Bezier(curve[0], curve[1], curve[2], curve[3]);
 
     counterRef.current[id] = {
       begin: Date.now(),

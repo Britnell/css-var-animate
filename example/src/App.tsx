@@ -12,6 +12,7 @@ const Scroller = () => {
   const threshRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const rollRef = useRef<HTMLDivElement>(null);
+  const blingRef = useRef<HTMLDivElement>(null);
 
   const countRef = useRef<HTMLDivElement>(null);
   const { start } = useCounter();
@@ -67,8 +68,12 @@ const Scroller = () => {
       <p className="info">
         CSS variables can be great for simplifying styles, and separating styles
         from js. They can now even be animated, however only when we specify the
-        number type with @property. This however does not yet have quite enough
-        browser support, so here is a super simple js library to do that.
+        number type with{" "}
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@property">
+          @property
+        </a>
+        . This however does not yet have quite enough browser support, so here
+        is a super simple js library to do that.
       </p>
       <div className="count" ref={countRef}>
         <h4>Counter Example - </h4>
@@ -84,7 +89,6 @@ const Scroller = () => {
                 ms: 1000,
               });
             }}
-            // onClick={() => counter.start({ T: 1.0, easing: "linear" })}
           >
             Linear
           </button>
@@ -94,36 +98,34 @@ const Scroller = () => {
                 ref: countRef,
                 id: "--x",
                 ms: 1000,
-                bezier: [1, 0, 0, 1],
+                easing: "ease-in-out",
+                // bezier: [1, 0, 0, 1],
               });
             }}
-            // onClick={() => counter.start({ T: 1.0, bezier: [1, 0, 0, 1] })}
           >
             Ease in out
           </button>
         </div>
       </div>
-      <p className="info"></p>
+      <p className="info">
+        No you can use this to animate any style with a css var, that would
+        otherwise be impossible or tricky. Let's have a go at the material UI
+        button bling bling. This is as per Lea Verou, as she demonstrates this
+        in her great course.
+      </p>
+
+      <button
+        ref={blingRef}
+        className="bling"
+        onClick={() => {
+          start({ ref: blingRef, id: "--r", ms: 800 });
+        }}
+      >
+        Submit
+      </button>
 
       <h2>useScroll</h2>
-      <p className="info">A react hook to animate with Scroll.</p>
-      <p className="info">Scroll down for the first example</p>
-
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-        interdum maximus libero, in ornare nunc tincidunt sit amet. Ut efficitur
-        maximus molestie. Phasellus sed egestas elit, sed pharetra erat. Vivamus
-        et facilisis dui. Etiam id neque quis sapien rutrum vulputate vitae sit
-        amet tellus. Morbi a feugiat erat, at finibus dui. Fusce feugiat eros in
-        ex mattis tempus. Suspendisse ullamcorper tellus at est tempor,
-        tristique egestas neque hendrerit. Nunc massa leo, sodales at nisl
-        finibus, porta sagittis magna. Nunc ultrices rutrum viverra. Lorem ipsum
-        dolor sit amet, consectetur adipiscing elit. Quisque interdum maximus
-        libero, in ornare nunc tincidunt sit amet. Ut efficitur maximus
-        molestie. Phasellus sed egestas elit, sed pharetra erat. Vivamus et
-        facilisis dui. Etiam id neque quis sapien rutrum vulputate vitae sit
-        amet tellus.
-      </p>
+      <p className="info">A react hook to animate a css variable on Scroll.</p>
       <p className="info">
         The basic ( and default) functionality of useScroll is to calculate the
         relative scroll position. By default this is a normalised percentage
