@@ -23,6 +23,7 @@ p.code {
 }
 
 span.code {
+  display: inline-block;
   margin: 0 8px;
   padding: 2px 4px;
 }
@@ -33,6 +34,11 @@ span.code {
   font-size: 32px;
   text-align: center;
 }
+.sc1:after {
+  counter-reset: p var(--p);
+  content: counter(p) " %";
+}
+
 .above {
 }
 .second {
@@ -45,7 +51,7 @@ span.code {
   height: 100px;
   width: 100px;
   background-color: rgb(89, 148, 221);
-  --pos: calc(var(--p) * 1vw - 100px);
+  --pos: calc(var(--p) / 100 * (100vw - 100px));
   transform: translateX(var(--pos));
   transition: transform 0.1s linear;
 }
