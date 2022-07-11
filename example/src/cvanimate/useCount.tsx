@@ -11,8 +11,10 @@ const defaultEasings = {
   "ease-in-out": [1, 0, 0, 1],
 };
 
+type refType = React.RefObject<HTMLDivElement | HTMLButtonElement>;
+
 type startProps = {
-  ref: React.RefObject<HTMLDivElement>;
+  ref: refType;
   id: string;
   ms?: number;
   bezier?: number[];
@@ -25,7 +27,7 @@ type counterType = {
     begin: number;
     ms: number;
     active: boolean;
-    ref: React.RefObject<HTMLDivElement>;
+    ref: refType;
     id: string;
     easingFunction: (x: number) => number;
   };

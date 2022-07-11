@@ -12,7 +12,7 @@ const Scroller = () => {
   const threshRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const rollRef = useRef<HTMLDivElement>(null);
-  const blingRef = useRef<HTMLDivElement>(null);
+  const blingRef = useRef<HTMLButtonElement>(null);
 
   const countRef = useRef<HTMLDivElement>(null);
   const { start } = useCounter();

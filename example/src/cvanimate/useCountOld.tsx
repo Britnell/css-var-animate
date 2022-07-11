@@ -19,7 +19,9 @@ type startProps = {
   easing?: "linear" | "ease-in" | "ease-out";
 };
 
-const useCounter = (ref: React.RefObject<HTMLDivElement>) => {
+type refType = React.RefObject<HTMLDivElement>;
+
+const useCounter = (ref: refType) => {
   const timer = useRef<NodeJS.Timer | null>();
 
   const start = ({
