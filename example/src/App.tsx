@@ -117,8 +117,17 @@ const Scroller = () => {
       <button
         ref={blingRef}
         className="bling"
-        onClick={() => {
-          start({ ref: blingRef, id: "--r", ms: 800 });
+        onPointerDown={(ev: React.MouseEvent<HTMLButtonElement>) => {
+          const target = ev.currentTarget;
+          const rect = target.getBoundingClientRect();
+          let x = (ev.clientX - rect.left) / rect.width;
+          let y = (ev.clientY - rect.top) / rect.height;
+          target.style.setProperty("--mx", x.toString());
+          target.style.setProperty("--my", y.toString());
+          target.style.setProperty("--tr", "0");
+        }}
+        onPointerUp={() => {
+          start({ ref: blingRef, id: "--tr", ms: 400 });
         }}
       >
         Submit

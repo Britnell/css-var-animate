@@ -64,11 +64,27 @@ button.bling {
   display: inline-block;
   padding: 0 20px;
   height: 60px;
+  background-color: rgb(36, 101, 231);
+  border-radius: 12px;
+  letter-spacing: 2px;
   font-size: 24px;
-  --c1: blue;
+  color: white;
+
   border: 1px solid var(--c1);
-  background: radial-gradient(black 12px, transparent 0);
-  background-size: 60px 60px;
+  --x: calc(var(--mx) * 100%);
+  --y: calc(var(--my) * 100%);
+
+  --r: calc(10px + var(--tr) * 100%);
+  --fade: calc((1 - var(--tr)) * 0.3);
+  background-image: radial-gradient(
+    circle at var(--x) var(--y),
+    hsl(0 100% 100% / var(--fade)) var(--r),
+    transparent 0
+  );
+  cursor: pointer;
+}
+button.bling:focus {
+  outline: none;
 }
 
 /* Scroll */
