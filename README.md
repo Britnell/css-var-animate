@@ -8,7 +8,7 @@ We all love js animation libraries but they do increase our code size. This is s
 
 # Demo
 
-Probably easiest to [see it in action on the demo page](css-var-animate.netlify.app). The demo page is part of the git repo, find [the code here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.tsx) and [the styles here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.css).
+Probably easiest to [see it in action on the demo page](https://css-var-animate.netlify.app/). The demo page is part of the git repo, find [the code here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.tsx) and [the styles here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.css).
 
 # useCount
 
@@ -16,8 +16,7 @@ CSS variables are really powerful, and in future we will be able to animate them
 
 ## Usage
 
-[ TBC ]
-...
+[ TBC ... ]
 
 # useScroll
 
@@ -25,8 +24,7 @@ Sites are dynamic now and it should be easy to animate on scroll. This function 
 
 ## Usage
 
-[ TBC ]
-...
+[ TBC ... ]
 
 ## Credit
 
