@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import "./App.css";
-import { useScroller, useCounter } from "./dist/index";
+import { useScroller, useCounter } from "css-var-animate";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);
