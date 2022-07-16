@@ -1,6 +1,6 @@
 {
   "name": "css-var-animate",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "animate css vars with js",
   "main": "index.js",
   "directories": {
@@ -20,7 +20,7 @@
     "custom-property",
     "css-var"
   ],
-  "author": "Thomas Britnell",
+  "author": "Thomas Britnell (https://wonday.eu)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Britnell/css-var-animate/issues"
