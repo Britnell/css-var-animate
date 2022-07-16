@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import "./App.css";
-import useScroller from "./cvanimate/useScroller";
-import useCounter from "./cvanimate/useCount";
+import { useScroller, useCounter } from "./dist/index";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);

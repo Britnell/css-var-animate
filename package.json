@@ -1,8 +1,8 @@
 {
   "name": "css-var-animate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "animate css vars with js",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "directories": {
     "example": "example"
   },
