@@ -4,3 +4,4 @@ test/
 pnpm-lock.yaml
 build/
 *-lock*
+*.lock
