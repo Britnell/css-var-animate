@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./App.css";
-import { useScroller, useCounter } from "css-var-animate";
-// import { useScroller, useCounter } from "./src/index";
+// import { useScroller, useCounter } from "css-var-animate";
+import { useScroller, useCounter } from "./src/index";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);
@@ -17,45 +17,46 @@ const Scroller = () => {
   const countRef = useRef<HTMLDivElement>(null);
   const { start } = useCounter();
 
-  useScroller([
-    {
-      ref: elRef,
-    },
-    { ref: secRef },
-    { ref: thirdRef },
-    { ref: fourRef },
-    {
-      ref: pacRef,
-      customVars: ({ perc }) => {
-        const p = perc * 100;
-        const period = 100 / 10;
-        const cycle = Math.floor(p / period) % 2 === 0;
-        const val = cycle ? p % period : period - (p % period);
-        return {
-          "--a": val,
-        };
-      },
-    },
-    {
-      ref: threshRef,
-      classChecker: ({ top }) => top > window.innerHeight / 2,
-      classTrue: "before",
-      classFalse: "after",
-      customVars: () => {},
-    },
-    {
-      ref: fadeRef,
-      classChecker: ({ top }) => top < window.innerHeight / 2,
-      classTrue: "fadeIn",
-      customVars: () => {},
-    },
-    {
-      ref: rollRef,
-      classChecker: ({ top }) => top < window.innerHeight * 0.75,
-      classTrue: "rollIn",
-      classFalse: "rollOut",
-    },
-  ]);
+  useScroller([{ ref: secRef }]);
+  // useScroller([
+  //   {
+  //     ref: elRef,
+  //   },
+  //   { ref: secRef },
+  //   { ref: thirdRef },
+  //   { ref: fourRef },
+  //   {
+  //     ref: pacRef,
+  //     customVars: ({ perc }) => {
+  //       const p = perc * 100;
+  //       const period = 100 / 10;
+  //       const cycle = Math.floor(p / period) % 2 === 0;
+  //       const val = cycle ? p % period : period - (p % period);
+  //       return {
+  //         "--a": val,
+  //       };
+  //     },
+  //   },
+  //   {
+  //     ref: threshRef,
+  //     classChecker: ({ top }) => top > window.innerHeight / 2,
+  //     classTrue: "before",
+  //     classFalse: "after",
+  //     customVars: () => {},
+  //   },
+  //   {
+  //     ref: fadeRef,
+  //     classChecker: ({ top }) => top < window.innerHeight / 2,
+  //     classTrue: "fadeIn",
+  //     customVars: () => {},
+  //   },
+  //   {
+  //     ref: rollRef,
+  //     classChecker: ({ top }) => top < window.innerHeight * 0.75,
+  //     classTrue: "rollIn",
+  //     classFalse: "rollOut",
+  //   },
+  // ]);
 
   return (
     <div className="container">
