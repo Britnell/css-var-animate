@@ -6,3 +6,6 @@ build/
 dist/
 *-lock*
 *.lock
+
+demo/src/dist
+demo/src/src

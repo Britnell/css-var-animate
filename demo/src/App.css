@@ -164,6 +164,7 @@ button.bling:focus {
 .pacman_container {
   --v: 0;
   --a: 0;
+  overflow: hidden;
 }
 
 .pacman {

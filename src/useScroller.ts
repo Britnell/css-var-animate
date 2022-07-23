@@ -77,8 +77,7 @@ const useScroller = (target: targetType) => {
   const animationRef = React.useRef<number>();
 
   React.useEffect(() => {
-    let scroll,
-      last = 0;
+    let last = 0;
 
     // * Observer
 
