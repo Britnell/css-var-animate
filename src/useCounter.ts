@@ -26,7 +26,6 @@ type counterType = {
     t?: number;
     begin: number;
     ms: number;
-    active: boolean;
     ref: refType;
     id: string;
     easingFunction: (x: number) => number;
@@ -37,26 +36,35 @@ const useCounter = () => {
   const requestRef = useRef<number>();
   const counterRef = useRef<counterType>({});
 
+  const loop = () => (requestRef.current = requestAnimationFrame(frameLoop));
+
   const frameLoop = () => {
-    if (Object.keys(counterRef.current).length > 0) {
-      Object.values(counterRef.current).forEach((counter) => {
-        const { active, begin, ms, id, easingFunction } = counter;
-        if (!active) return;
-        const t = Date.now() - begin;
-        let p = t / ms;
-        if (p > 1.0) p = 1.0;
-        const val = easingFunction(p);
-        if (counter.ref.current)
-          counter.ref.current.style.setProperty(id, asStr(val));
-        // End
-        if (t >= ms) counter.active = false;
-      });
-    }
-    requestRef.current = requestAnimationFrame(frameLoop);
+    // if counters obj empty , break loop
+    if (Object.keys(counterRef.current).length == 0) return;
+
+    // * loop through counters
+    Object.keys(counterRef.current).forEach((key) => {
+      const { begin, ms, id, easingFunction, ref } = counterRef.current[key];
+
+      const time = Date.now() - begin;
+      let fraction = time / ms;
+      if (fraction > 1.0) fraction = 1.0;
+      const val = easingFunction(fraction);
+
+      ref.current && ref.current.style.setProperty(id, asStr(val));
+
+      // * End
+      if (time >= ms) {
+        delete counterRef.current[key];
+      }
+    });
+
+    // * Loop
+    loop();
   };
 
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(frameLoop);
+    // requestRef.current = requestAnimationFrame(frameLoop);
     return () => {
       requestRef.current && cancelAnimationFrame(requestRef.current);
     };
@@ -77,12 +85,13 @@ const useCounter = () => {
 
     counterRef.current[id] = {
       begin: Date.now(),
-      active: true,
       ms,
       id,
       ref,
       easingFunction,
     };
+
+    loop();
   };
 
   return { start };
