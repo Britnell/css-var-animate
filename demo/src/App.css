@@ -11,11 +11,14 @@ p.info {
   color: black;
 }
 
-p.code,
-span.code {
+:is(p, span).code {
   color: black;
   font-family: "Courier New", Courier, monospace;
   background-color: rgb(238, 238, 238);
+}
+:is(p, span).code.block {
+  white-space: pre;
+  overflow: auto;
 }
 
 p.code {
@@ -96,12 +99,13 @@ button.bling:focus {
   text-align: center;
 }
 .sc1:after {
-  counter-reset: p calc(var(--p) * 100);
+  counter-reset: p calc(var(--v) * 100);
   content: counter(p) " %";
 }
 
 .above {
 }
+
 .second {
   width: 100vw;
   margin-left: 50%;
@@ -112,7 +116,7 @@ button.bling:focus {
   height: 100px;
   width: 100px;
   background-color: rgb(89, 148, 221);
-  --pos: calc(var(--p) * (100vw - 100px));
+  --pos: calc(var(--v) * (100vw - 100px));
   transform: translateX(var(--pos));
   transition: transform 0.1s linear;
 }
@@ -124,8 +128,8 @@ button.bling:focus {
   background-color: rgb(240, 153, 153);
   background-image: conic-gradient(red 180deg, green 0deg);
 
-  --pos: calc(var(--p) * 100vw - 100px);
-  --ang: calc(var(--p) * 360deg * 2);
+  --pos: calc(var(--v) * 100vw - 100px);
+  --ang: calc(var(--v) * 360deg * 2);
   transform: translateX(var(--pos)) rotate(var(--ang));
   transition: transform 0.1s linear;
 }
@@ -137,18 +141,31 @@ button.bling:focus {
   background-color: rgb(240, 153, 153);
   background-image: conic-gradient(red 180deg, green 0deg);
 
-  --pos: calc(var(--s) * 0.1vw - 100px);
+  --pos: calc(var(--s) * 0.7px - 100px);
   --ang: calc(var(--s) * 1deg);
   transform: translateX(var(--pos)) rotate(var(--ang));
   transition: transform 0.1s linear;
 }
 
-.pac-container {
+.all {
+  height: 50vmin;
+  background-color: gold;
+}
+
+.pacman_container {
   --w: 100px;
+  --v: 0;
+  --a: 0;
   width: 100vw;
   margin-left: 50%;
   transform: translateX(-50%);
 }
+
+.pacman_container {
+  --v: 0;
+  --a: 0;
+}
+
 .pacman {
   width: var(--w);
   height: var(--w);
@@ -165,10 +182,11 @@ button.bling:focus {
     );
   background-position: 0 -25px, 0 0;
 
-  --pos: calc(var(--p) * 100vw);
+  --pos: calc(var(--v) * 100vw);
   transform: translateX(var(--pos));
   transition: all 0.1s linear;
 }
+
 .dots {
   position: absolute;
   right: 0;
@@ -176,8 +194,8 @@ button.bling:focus {
   width: 100vw;
   background: radial-gradient(blue 5px, transparent 0);
   background-size: var(--w) var(--w);
-  background-position: calc((1 - var(--p)) * 100vw);
-  width: calc((1 - var(--p)) * 100vw - var(--w) * 0.25);
+  background-position: calc((1 - var(--v)) * 100vw);
+  width: calc((1 - var(--v)) * 100vw - var(--w) * 0.25);
   transition: all 0.1s linear;
 }
 
