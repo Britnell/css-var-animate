@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/Britnell/css-var-animate.git"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "animation",
     "css",
