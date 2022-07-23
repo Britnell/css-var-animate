@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/Britnell/css-var-animate/issues"
   },
-  "homepage": "https://github.com/Britnell/css-var-animate#readme",
+  "homepage": "https://css-var-animate.netlify.app",
   "peerDependencies": {
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"

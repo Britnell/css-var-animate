@@ -1,10 +1,8 @@
 # Css-Var-Animate React
 
-Welcome to my little package, this is a super lightweight library (actually they are just React hooks).
+Welcome to my little package, this is a super lightweight library (actually they are just React hooks) to animate css variable with js, to achieve animations you couldn't do with CSS alone.
 
-Animate css variable with js, to achieve animations you couldn't do with CSS alone. Minimal js that simply animates CSS variables (AKA custom properties), for you to do the rest in CSS.
-
-We all love js animation libraries but they do increase our code size. This is for when you don't want to go full gsap just for a few simple animations.
+We all love js animation libraries but they do increase our code size. This is for when you don't want to go full gsap just for a few simple animations. Minimal js that simply animates CSS variables (AKA custom properties), for you to do the rest in CSS.
 
 ## Disclaimer
 
