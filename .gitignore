@@ -5,5 +5,3 @@ pnpm-lock.yaml
 build/
 *-lock*
 *.lock
-
-demo/src/src/*
