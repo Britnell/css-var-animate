@@ -128,8 +128,8 @@ const Scroller = () => {
       <p className="info">
         No you can use this to animate any style with a css var, that would
         otherwise be impossible or tricky. Let's have a go at the material UI
-        button bling bling. This is as per Lea Verou, as she demonstrates this
-        in her great course.
+        button bling bling, this example is from [Lea
+        Verou](https://lea.verou.me/).
       </p>
 
       <button
