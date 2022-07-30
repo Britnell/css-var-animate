@@ -373,3 +373,73 @@ button.bling:focus {
     transform: rotate(-90deg);
   }
 }
+
+.mouseover {
+  height: 200px;
+  background: rgb(42, 42, 42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  font-size: 48px;
+  color: #fff;
+}
+.mouseover:before {
+  counter-reset: val calc(var(--mx) * 100);
+  content: " x: " counter(val);
+}
+.mouseover:after {
+  counter-reset: val calc(var(--my) * 100);
+  content: " y: " counter(val);
+}
+
+.mousebling {
+  margin: 48px 0;
+  display: grid;
+  place-items: center;
+}
+
+.mousebling > div {
+  display: inline-block;
+}
+
+.mousebling button {
+  display: inline-block;
+  padding: 24px 48px;
+
+  --wx: calc((1 - var(--mx)) * 100%);
+  --wy: calc((1 - var(--my)) * 100%);
+
+  --bx: calc(var(--mx) * 100%);
+  --by: calc(var(--my) * 100%);
+
+  --col: rgb(36, 101, 231);
+
+  background-color: var(--col);
+  background-image: radial-gradient(
+      closest-side ellipse at var(--wx) var(--wy),
+      hsl(0 100% 100% / 0.15) 0px,
+      transparent
+    ),
+    radial-gradient(
+      ellipse at var(--wx) var(--wy),
+      hsl(0 100% 100% / 0.4) 0px,
+      transparent
+    ),
+    radial-gradient(
+      ellipse at var(--bx) var(--by),
+      hsla(238, 100%, 21%, 0.5) 0px,
+      transparent
+    );
+
+  /* border: 4px solid var(--col); */
+  border: none;
+
+  border-radius: 12px;
+  letter-spacing: 2px;
+  font-size: 48px;
+  color: white;
+
+  cursor: pointer;
+}

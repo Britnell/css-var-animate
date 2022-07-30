@@ -36,11 +36,9 @@ const useCounter = () => {
   const requestRef = useRef<number>();
   const counterRef = useRef<counterType>({});
 
-  const loop = () => (requestRef.current = requestAnimationFrame(frameLoop));
-
   const frameLoop = () => {
     // if counters obj empty , break loop
-    if (Object.keys(counterRef.current).length == 0) return;
+    if (Object.keys(counterRef.current).length === 0) return;
 
     // * loop through counters
     Object.keys(counterRef.current).forEach((key) => {
@@ -60,11 +58,10 @@ const useCounter = () => {
     });
 
     // * Loop
-    loop();
+    requestRef.current = requestAnimationFrame(frameLoop);
   };
 
   useEffect(() => {
-    // requestRef.current = requestAnimationFrame(frameLoop);
     return () => {
       requestRef.current && cancelAnimationFrame(requestRef.current);
     };
@@ -91,7 +88,7 @@ const useCounter = () => {
       easingFunction,
     };
 
-    loop();
+    requestRef.current = requestAnimationFrame(frameLoop);
   };
 
   return { start };

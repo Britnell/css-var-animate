@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import "./App.css";
-import { useScroller, useCounter } from "css-var-animate";
-// import { useScroller, useCounter } from "./src/index";
-// import { useScroller, useCounter } from "./dist/index";
+
+// import { useScroller, useCounter, useMouseover } from "css-var-animate";
+import { useScroller, useCounter, useMouseover } from "./src/index";
+// import { useScroller, useCounter,useMouseover } from "./dist/index";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);
@@ -14,10 +15,17 @@ const Scroller = () => {
   const threshRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
   const rollRef = useRef<HTMLDivElement>(null);
-  const blingRef = useRef<HTMLButtonElement>(null);
 
+  const blingRef = useRef<HTMLButtonElement>(null);
   const countRef = useRef<HTMLDivElement>(null);
+
+  const mouseRef = useRef<HTMLDivElement>(null);
+  const bingoRef = useRef<HTMLDivElement>(null);
+
   const { start } = useCounter();
+
+  useMouseover(mouseRef);
+  useMouseover(bingoRef);
 
   useScroller({ ref: elRef });
   useScroller({ ref: secRef });
@@ -126,10 +134,10 @@ const Scroller = () => {
         </div>
       </div>
       <p className="info">
-        No you can use this to animate any style with a css var, that would
-        otherwise be impossible or tricky. Let's have a go at the material UI
-        button bling bling, this example is from [Lea
-        Verou](https://lea.verou.me/).
+        Now you can use this to animate any style with a css var, that would
+        otherwise be impossible (?) or tricky. Let's have a go at the material
+        UI button bling bling, this example is from{" "}
+        <a href="https://lea.verou.me/"> Lea Verou</a>
       </p>
 
       <button
@@ -150,6 +158,28 @@ const Scroller = () => {
       >
         Submit
       </button>
+
+      <h2>useMouseOver</h2>
+
+      <p className="info">
+        To get the relative position of the mouse over an element use{" "}
+        <span className="code">useMouseOver(ref)</span> and pass it the ref of
+        the element that the event should listen to. it will also apply the css
+        vars to this element. <span className="code">--mx</span> and{" "}
+        <span className="code">--my</span>
+      </p>
+      <div ref={mouseRef} className="mouseover">
+        <span> - </span>
+      </div>
+
+      <p className="info">
+        Now use that animate anything you want, e.g. this background gradient.
+      </p>
+      <div className="mousebling">
+        <div ref={bingoRef}>
+          <button>Bingo</button>
+        </div>
+      </div>
 
       <h2>useScroll</h2>
       <p className="info">A react hook to animate a css variable on Scroll.</p>
