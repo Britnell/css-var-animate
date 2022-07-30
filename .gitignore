@@ -9,5 +9,3 @@ pnpm-lock.yaml
 node_modules
 
 demo/node_modules
-# demo/src/dist
-demo/src/src
