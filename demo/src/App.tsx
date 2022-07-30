@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import "./App.css";
 
-// import { useScroller, useCounter, useMouseover } from "css-var-animate";
-import { useScroller, useCounter, useMouseover } from "./src/index";
-// import { useScroller, useCounter,useMouseover } from "./dist/index";
+import { useScroller, useCounter, useMouseover } from "css-var-animate";
+// import { useScroller, useCounter, useMouseover } from "./src/index";
+// import { useScroller, useCounter, useMouseover } from "./dist/index";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);

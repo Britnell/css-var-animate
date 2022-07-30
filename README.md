@@ -19,17 +19,13 @@ Probably easiest to [see it in action on the demo page](https://css-var-animate.
 
 CSS variables are really powerful, and in future we will be able to animate them aswell (with @property), but since the support is not great for this yet, I built a hook that animates a css variable for you, tweening the value from a start to stop value. This is different from other js libs i saw that run animations, or that animate a text value in your html.
 
-## Usage
-
-[ TBC ... ]
-
 # useScroll
 
 Sites are dynamic now and it should be easy to animate on scroll. This function takes a useRef to an element and updates a css variable with it's relative scroll position. This can then be used in CSS to animate with or on scroll.
 
-## Usage
+# useMouseover
 
-[ TBC ... ]
+For effects on mouse-move use this simple hook to get a 0 to 1 index in where the mouse cursor is relative to the element `--mx` and `--my`.
 
 ## Credit
 
