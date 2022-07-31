@@ -1,11 +1,8 @@
 {
   "name": "css-var-animate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "animate css vars with js",
   "main": "dist/index.js",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
