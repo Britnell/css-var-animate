@@ -1,7 +1,6 @@
 .DS_Store
 test/
 build/
-dist/
 pnpm-lock.yaml
 *-lock*
 *.lock

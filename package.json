@@ -1,11 +1,18 @@
 {
   "name": "css-var-animate",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "animate css vars with js",
-  "main": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./counter": "./dist/useCounter.js",
+    "./scroller": "./dist/useScroller.js",
+    "./mouseover": "./dist/useMouseover.js"
+  },
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
+    "release": "npm i && rollup -c && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

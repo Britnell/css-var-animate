@@ -1,7 +1,10 @@
 import React, { useRef } from "react";
 import "./App.css";
 
-import { useScroller, useCounter, useMouseover } from "css-var-animate";
+import { useCounter } from "css-var-animate";
+import { useMouseover } from "css-var-animate";
+import { useScroller } from "css-var-animate";
+// import useScroller from "css-var-animate/scroller";
 // import { useScroller, useCounter, useMouseover } from "./src/index";
 // import { useScroller, useCounter, useMouseover } from "./dist/index";
 
