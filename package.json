@@ -1,6 +1,6 @@
 {
   "name": "css-var-animate",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "animate css vars with js",
   "type": "module",
   "exports": {
@@ -12,7 +12,7 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "release": "npm i && rollup -c && npm publish",
+    "release": "rollup -c && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
