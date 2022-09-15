@@ -4,9 +4,11 @@ import "./App.css";
 import { useCounter } from "css-var-animate";
 import { useMouseover } from "css-var-animate";
 import { useScroller } from "css-var-animate";
+
 // import useScroller from "css-var-animate/scroller";
 // import { useScroller, useCounter, useMouseover } from "./src/index";
 // import { useScroller, useCounter, useMouseover } from "./dist/index";
+// import { useCounter, useMouseover, useScroller } from "css-var-animate";
 
 const Scroller = () => {
   const elRef = useRef<HTMLDivElement>(null);
