@@ -1,14 +1,27 @@
 # Css-Var-Animate React
 
 Welcome to my little package, this is a super lightweight library (actually they are just a few React hooks) to animate css variable with js, to achieve animations you couldn't do with CSS alone.
+Built to be performant by using combination of events, intersection observer, requestAnimationFrame.
 
 # Demo
 
-Probably easiest to [see it in action on the demo page](https://css-var-animate.netlify.app/). The demo page is part of the git repo, find [the code here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.tsx) and [the styles here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.css).
+Probably easiest to [see it in action on the demo page](https://css-var-animate.netlify.app/).
+The demo page is part of the git repo, find [the code here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.tsx) and [the styles here](https://github.com/Britnell/css-var-animate/blob/main/demo/src/App.css).
+
+### Size
+
+all together - 3.5 kB
+useCounter - 1.33 kB
+useScroller - 1.84 kB
+useMouseover - 1kB
+
+Still figuring out how to optimise the package to be smaller, but the hooks themselves are super short (and simple).
+Also still working on module exports, to import each hook separately `import useScroller from "css-var-animate/scroller";`,
+but it doesn't seem to be working (input welcome), so for now import them all through index : `import { useCounter, useMouseover, useScroller } from "css-var-animate";`
 
 # useCounter
 
-CSS variables are really powerful, and in future we will be able to animate them aswell (with @property), but since the support is not great for this yet, I built a hook that animates a css variable for you, tweening the value from a start to stop value. This is different from other js libs i saw that run animations, or that animate a text value in your html.
+CSS variables are really powerful, and in future we will be able to animate them aswell (with CSS @property), but since the support is not great for this yet, I built a hook that animates a css variable for you, tweening the value from a start to stop value. This is different from other js libs i saw that run animations, or that animate a text value in your html.
 
 This essentially tweens a value from 0 to 1, and applies this value as a CSS custom property.
 
@@ -102,14 +115,9 @@ const Component = ()=>{
 }
 ```
 
-# Module import
+# Dependencies
 
-To be honest I'm trying to get module imports to work
-`import useScroller from "css-var-animate/scroller";`
-
-So you can import the hooks separately for smaller code sizes - but I can't get it to work, any help welcome.
-Currently they all come together
-`import { useCounter, useMouseover, useScroller } from "css-var-animate";`
+Of course dependend on React & typescript, only 1 dependency is npm package : [bezier-easing](https://www.npmjs.com/package/bezier-easing) used for useCounter tweening. and rollup for building
 
 ## About
 
