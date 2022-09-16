@@ -1,6 +1,6 @@
 {
   "name": "css-var-animate",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "animate css vars with js",
   "type": "module",
   "exports": {
