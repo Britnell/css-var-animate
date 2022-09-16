@@ -19,7 +19,6 @@ const Scroller = () => {
   const pacRef = useRef<HTMLDivElement>(null);
   const threshRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
-  const rollRef = useRef<HTMLDivElement>(null);
 
   const blingRef = useRef<HTMLButtonElement>(null);
   const countRef = useRef<HTMLDivElement>(null);
@@ -76,15 +75,6 @@ const Scroller = () => {
     threshold: ({ top }) => ({
       res: top > 0.5,
       classTrue: "fadeIn",
-    }),
-  });
-
-  useScroller({
-    ref: rollRef,
-    threshold: ({ top }) => ({
-      res: top > 0.2,
-      classTrue: "rollIn",
-      classFalse: "rollOut",
     }),
   });
 
@@ -367,15 +357,7 @@ const Scroller = () => {
         maximus molestie. Phasellus sed egestas elit, sed pharetra erat. Vivamus
         et facilisis dui.
       </p>
-      <div ref={rollRef} className="roller">
-        <span className="q1">
-          <span className="q2">
-            <span className="q3">
-              <span className="q4">B</span>
-            </span>
-          </span>
-        </span>
-      </div>
+
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
         interdum maximus libero, in ornare nunc tincidunt sit amet. Ut efficitur
