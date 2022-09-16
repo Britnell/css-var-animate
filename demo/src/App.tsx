@@ -37,14 +37,12 @@ const Scroller = () => {
   useScroller({ ref: fourRef });
   useScroller({
     ref: allRef,
-    customVars: ({ view, scroll, top, bottom }) => {
-      return {
-        "--s": scroll,
-        "--v": view,
-        "--t": top,
-        "--b": bottom,
-      };
-    },
+    customVars: ({ view, scroll, top, bottom }) => ({
+      "--s": scroll,
+      "--v": view,
+      "--t": top,
+      "--b": bottom,
+    }),
   });
 
   useScroller({
