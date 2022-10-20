@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bezier-easing": "^2.1.0",
-    "css-var-animate": "^0.3.2",
+    "css-var-animate": "^0.3.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
