@@ -287,7 +287,12 @@ const Scroller = () => {
         Demonstrated aon the object below, inspect the element to watch the
         behaviour of the various values.
       </p>
-      <div className="all" ref={allRef}></div>
+      <div className="all" ref={allRef}>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
       <h2>Custom Vars</h2>
       <p className="info">

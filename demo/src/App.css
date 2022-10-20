@@ -150,6 +150,26 @@ button.bling:focus {
 .all {
   height: 50vmin;
   background-color: gold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.all span:nth-child(1)::after {
+  counter-reset: val calc(var(--s));
+  content: "--s : " counter(val) " px";
+}
+.all span:nth-child(2)::after {
+  counter-reset: val calc(var(--v) * 100);
+  content: "--v ( x100 ) : " counter(val) " %";
+}
+.all span:nth-child(3)::after {
+  counter-reset: val calc(var(--t) * 100);
+  content: "--t ( x100 ) : " counter(val) " %";
+}
+.all span:nth-child(4)::after {
+  counter-reset: val calc(var(--b) * 100);
+  content: "--b ( x100 ) : " counter(val) " %";
 }
 
 .pacman_container {
